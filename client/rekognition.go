@@ -26,7 +26,7 @@ func rekognize() {
 
 	input := &rekognition.DetectLabelsInput{
 		Image: &rekognition.Image{
-			Bytes: []byte(imageBytes),
+			Bytes: imageBytes,
 		},
 	}
 
@@ -43,6 +43,6 @@ func getDotEnvVar(key string) string {
 	if err != nil {
 		panic(err)
 	}
-
+	
 	return os.Getenv(key)
 }
