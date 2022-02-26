@@ -97,5 +97,5 @@ func getAppData() string {
 	if err != nil {
 		panic(err)
 	}
-	return basePath + "\\Sable"
+	return basePath + "\\Sables"
 }

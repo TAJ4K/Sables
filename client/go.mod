@@ -1,4 +1,4 @@
-module Sable
+module Sables
 
 go 1.16
 
