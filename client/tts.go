@@ -2,7 +2,7 @@ package main
 
 import (
 	"io"
-	"os"
+	// "os"
 	"time"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -30,32 +30,11 @@ func tts(object string){
 		panic(err)
 	}
 
-	mp3File := "speech" + ".mp3"
-
-	outFile, err := os.Create(getAppData() + "\\" + mp3File)
-	if err != nil {
-		panic(err)
-	}
-
-	defer outFile.Close()
-
-	_, err = io.Copy(outFile, result.AudioStream)
-	if err != nil {
-		panic(err)
-	}
-
-	time.Sleep(2 * time.Second)
-	playMP3()
+	playMP3(result.AudioStream)
 }
 
-func playMP3() {
-	file, err := os.Open(getAppData() + "\\speech.mp3")
-	if err != nil {
-		panic(err)
-	}
-	defer file.Close()
-
-	streamer, format, err := mp3.Decode(file)
+func playMP3(data io.ReadCloser) {
+	streamer, format, err := mp3.Decode(data)
 	if err != nil {
 		panic(err)
 	}
