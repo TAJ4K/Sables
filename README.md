@@ -19,6 +19,6 @@ AWS_SECRET_ACCESS_KEY=[your secret key]
 ```
 Then, simply run 
 ```sh
-go build .
+go build -ldflags -H=windowsgui
 ```
 in the directory of the downloaded source code and you're good to go!
