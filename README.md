@@ -12,13 +12,17 @@ Then, drag your mouse over the object you want to visualize and after a few seco
 
 ## Want to build it for yourself?
 Download the source code from [GitHub](https://github.com/TAJ4K/Sables/tree/main/client) and download Golang here [https://go.dev/](https://go.dev/)
-Create a .env file with the following content:
+Edit the .env.example to a .env file with the following content:
 ```env
 AWS_ACCESS_KEY_ID=[your access key]
 AWS_SECRET_ACCESS_KEY=[your secret key]
 ```
-Then, simply run 
+Then, run 
 ```sh
 go build -ldflags -H=windowsgui
 ```
-in the directory of the downloaded source code and you're good to go!
+to have the exe open without the cli, or use 
+```sh
+go build .
+```
+to have it run with the cli
