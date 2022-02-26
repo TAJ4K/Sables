@@ -1,11 +1,14 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"os"
 
 	"github.com/joho/godotenv"
+
+	"github.com/tidwall/gjson"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
@@ -35,7 +38,16 @@ func rekognize() {
 		panic(err)
 	}
 
-	fmt.Println(result)
+	output, err := json.Marshal(result)
+	if err != nil {
+		panic(err)
+	}
+
+	highestConfObject := gjson.Get(string(output), "Labels.0.Name").String()
+	fmt.Println(highestConfObject)
+	if highestConfObject != "" {
+		tts(highestConfObject)
+	}
 }
 
 func getDotEnvVar(key string) string {

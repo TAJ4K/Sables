@@ -11,19 +11,18 @@ import (
 )
 
 func main() {
-	// _, err := os.Stat(getAppData())
-	// if err != nil {
-	// 	fmt.Println("Creating directory")
-	// 	err = os.Mkdir(getAppData(), 0777)
-	// 	if err != nil {
-	// 		panic(err)
-	// 	}
-	// }
+	_, err := os.Stat(getAppData())
+	if err != nil {
+		fmt.Println("Creating directory")
+		err = os.Mkdir(getAppData(), 0777)
+		if err != nil {
+			panic(err)
+		}
+	}
 
-	// if err := keyListener(); err != nil {
-	// 	panic(err)
-	// }
-	tts()
+	if err := keyListener(); err != nil {
+		panic(err)
+	}
 }
 
 func keyListener() error {

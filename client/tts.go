@@ -15,7 +15,7 @@ import (
 	"github.com/faiface/beep/speaker"
 )
 
-func tts(){
+func tts(object string){
 	sess := session.Must(session.NewSession(&aws.Config{
 		Region: aws.String("us-east-1"),
 		Credentials: credentials.NewStaticCredentials(getDotEnvVar("AWS_ACCESS_KEY_ID"), getDotEnvVar("AWS_SECRET_ACCESS_KEY"), ""),
@@ -23,7 +23,7 @@ func tts(){
 
 	svc := polly.New(sess)
 
-	input := &polly.SynthesizeSpeechInput{OutputFormat: aws.String("mp3"), Text: aws.String("Hello World"), VoiceId: aws.String("Matthew")}
+	input := &polly.SynthesizeSpeechInput{OutputFormat: aws.String("mp3"), Text: aws.String(object), VoiceId: aws.String("Matthew")}
 
 	result, err := svc.SynthesizeSpeech(input)
 	if err != nil {
@@ -43,6 +43,9 @@ func tts(){
 	if err != nil {
 		panic(err)
 	}
+
+	time.Sleep(2 * time.Second)
+	playMP3()
 }
 
 func playMP3() {
