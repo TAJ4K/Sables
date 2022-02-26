@@ -1,20 +1,21 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"os"
-	"fmt"
 
 	"github.com/joho/godotenv"
+
 	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/aws/credentials"
+	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/rekognition"
 )
 
 func rekognize() {
 	sess := session.Must(session.NewSession(&aws.Config{
-		Region: aws.String("us-east-1"),
+		Region:      aws.String("us-east-1"),
 		Credentials: credentials.NewStaticCredentials(getDotEnvVar("AWS_ACCESS_KEY_ID"), getDotEnvVar("AWS_SECRET_ACCESS_KEY"), ""),
 	}))
 

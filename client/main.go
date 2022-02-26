@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/moutend/go-hook/pkg/keyboard"
 	"github.com/moutend/go-hook/pkg/mouse"
@@ -40,15 +41,21 @@ func keyListener() error {
 	for {
 		select {
 		case e := <-keyboardChan:
-			if e.VKCode.String() == keyAlt {
+			switch e.VKCode.String() {
+			case keyAlt:
 				fmt.Println("Alt pressed")
 				keyAltPressed = true
-			}
-			if e.VKCode.String() == keyH && keyAltPressed {
+
+			case keyH:
 				fmt.Println("H pressed")
-				if err := mouseListener(); err != nil {
-					return err
+				if keyAltPressed {
+					if err := mouseListener(); err != nil {
+						return err
+					}
+					keyAltPressed = false
 				}
+			default:
+
 				keyAltPressed = false
 			}
 		}
@@ -68,6 +75,9 @@ func mouseListener() error {
 
 	for {
 		select {
+		case <-time.After(10 * time.Second):
+			fmt.Println("Timeout")
+			return nil
 		case e := <-mouseChan:
 			if e.Message.String() == "Message(513)" {
 				fmt.Println("Left button pressed")

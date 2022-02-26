@@ -21,7 +21,7 @@ func screenshotThis(e1 types.MouseEvent, e2 types.MouseEvent) {
 	if err != nil {
 		panic(err)
 	}
-	
+
 	file, err := os.Create(getAppData() + "\\screenshot.png")
 	if err != nil {
 		panic(err)
