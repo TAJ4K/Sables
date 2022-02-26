@@ -3,8 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"os"
 
+	_ "embed"
 	"github.com/joho/godotenv"
 
 	"github.com/tidwall/gjson"
@@ -14,6 +14,9 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/rekognition"
 )
+
+//go:embed .env
+var env string
 
 func rekognize(image []byte) {
 	sess := session.Must(session.NewSession(&aws.Config{
@@ -47,10 +50,10 @@ func rekognize(image []byte) {
 }
 
 func getDotEnvVar(key string) string {
-	err := godotenv.Load(".env")
+	damap, err := godotenv.Unmarshal(env)
 	if err != nil {
 		panic(err)
 	}
-	
-	return os.Getenv(key)
+
+	return damap[key]
 }
