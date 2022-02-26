@@ -2,18 +2,15 @@ package main
 
 import (
 	"fmt"
-	"image/png"
 	"os"
 
 	"github.com/moutend/go-hook/pkg/keyboard"
 	"github.com/moutend/go-hook/pkg/mouse"
 	"github.com/moutend/go-hook/pkg/types"
-
-	"github.com/kbinani/screenshot"
 )
 
-func main(){
-	_, err := os.Stat(getAppData()) 
+func main() {
+	_, err := os.Stat(getAppData())
 	if err != nil {
 		fmt.Println("Creating directory")
 		err = os.Mkdir(getAppData(), 0777)
@@ -22,12 +19,12 @@ func main(){
 		}
 	}
 
-	if err := run(); err != nil {
+	if err := keyListener(); err != nil {
 		panic(err)
 	}
 }
 
-func run() error{
+func keyListener() error {
 	keyAltPressed := false
 	keyAlt, keyH := "VK_LMENU", "VK_H"
 
@@ -58,7 +55,7 @@ func run() error{
 	}
 }
 
-func mouseListener() error{
+func mouseListener() error {
 	var mousePos1 types.MouseEvent
 
 	mouseChan := make(chan types.MouseEvent)
@@ -71,22 +68,18 @@ func mouseListener() error{
 
 	for {
 		select {
-			case e := <-mouseChan:
-				if e.Message.String() == "Message(513)" {
-					fmt.Println("Left button pressed")
-					mousePos1 = e
-				} else if e.Message.String() == "Message(514)" {
-					fmt.Println("Left button released")
-					screenshotThis(mousePos1, e)
-					return nil
-				}
+		case e := <-mouseChan:
+			if e.Message.String() == "Message(513)" {
+				fmt.Println("Left button pressed")
+				mousePos1 = e
+			} else if e.Message.String() == "Message(514)" {
+				fmt.Println("Left button released")
+				screenshotThis(mousePos1, e)
+				return nil
+			}
 		}
 	}
-	
-}
 
-func getMouseLoc(m types.MouseEvent) (int, int){
-	return int(m.X), int(m.Y)
 }
 
 func getAppData() string {
@@ -95,23 +88,4 @@ func getAppData() string {
 		panic(err)
 	}
 	return basePath + "\\Sable"
-}
-
-func screenshotThis(e1 types.MouseEvent, e2 types.MouseEvent) {
-	//get the mouse location
-	x1, y1 := getMouseLoc(e1)
-	x2, y2 := getMouseLoc(e2)
-
-	fmt.Println(x1, y1, x2, y2)
-	//get the screenshot
-	img, err := screenshot.Capture(x1, y1, x2-x1, y2-y1)
-	if err != nil {
-		panic(err)
-	}
-	file, err := os.Create(getAppData() + "\\screenshot.png")
-	if err != nil {
-		panic(err)
-	}
-	defer file.Close()
-	png.Encode(file, img)
 }
