@@ -26,8 +26,8 @@ func main() {
 }
 
 func keyListener() error {
-	keyAltPressed := false
-	keyAlt, keyH := "VK_LMENU", "VK_H"
+	key1Pressed := false
+	key1, key2 := "VK_LMENU", "VK_H"
 
 	keyboardChan := make(chan types.KeyboardEvent, 100)
 	if err := keyboard.Install(nil, keyboardChan); err != nil {
@@ -38,28 +38,25 @@ func keyListener() error {
 
 	fmt.Println("start capturing keyboard input")
 
-	for {
-		select {
-		case e := <-keyboardChan:
-			switch e.VKCode.String() {
-			case keyAlt:
-				fmt.Println("Alt pressed")
-				keyAltPressed = true
-
-			case keyH:
-				fmt.Println("H pressed")
-				if keyAltPressed {
-					if err := mouseListener(); err != nil {
-						return err
-					}
-					keyAltPressed = false
+	for e := range keyboardChan {
+		switch e.VKCode.String() {
+		case key1:
+			fmt.Println(key1 + " pressed")
+			key1Pressed = true
+		case key2:
+			fmt.Println(key2 + " pressed")
+			if key1Pressed {
+				if err := mouseListener(); err != nil {
+					return err
 				}
-			default:
-
-				keyAltPressed = false
+				key1Pressed = false
 			}
+		default:
+			//resets state if key combo is blocked
+			key1Pressed = false
 		}
 	}
+	return nil
 }
 
 func mouseListener() error {
