@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"time"
 
 	"github.com/moutend/go-hook/pkg/keyboard"
@@ -11,15 +10,6 @@ import (
 )
 
 func main() {
-	_, err := os.Stat(getAppData())
-	if err != nil {
-		fmt.Println("Creating directory")
-		err = os.Mkdir(getAppData(), 0777)
-		if err != nil {
-			panic(err)
-		}
-	}
-
 	if err := keyListener(); err != nil {
 		panic(err)
 	}
@@ -90,12 +80,4 @@ func mouseListener() error {
 			}
 		}
 	}
-}
-
-func getAppData() string {
-	basePath, err := os.UserConfigDir()
-	if err != nil {
-		panic(err)
-	}
-	return basePath + "\\Sables"
 }
