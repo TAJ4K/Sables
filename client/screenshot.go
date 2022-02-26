@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"image/png"
-	"os"
+	"bytes"
 
 	"github.com/moutend/go-hook/pkg/types"
 
@@ -19,17 +19,17 @@ func screenshotThis(e1 types.MouseEvent, e2 types.MouseEvent) {
 	//get the screenshot
 	img, err := screenshot.Capture(x1, y1, x2-x1, y2-y1)
 	if err != nil {
-		panic(err)
+		return
 	}
 
-	file, err := os.Create(getAppData() + "\\screenshot.png")
+	buff := new(bytes.Buffer)
+	
+	err = png.Encode(buff, img)
 	if err != nil {
 		panic(err)
 	}
-	defer file.Close()
-	png.Encode(file, img)
 
-	rekognize()
+	rekognize(buff.Bytes())
 }
 
 func getMouseLoc(m types.MouseEvent) (int, int) {

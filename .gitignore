@@ -1,3 +1,4 @@
 website/node_modules
 app/.env
 client/.env
+client/Sables.exe

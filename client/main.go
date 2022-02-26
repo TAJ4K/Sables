@@ -41,8 +41,12 @@ func keyListener() error {
 	for e := range keyboardChan {
 		switch e.VKCode.String() {
 		case key1:
-			fmt.Println(key1 + " pressed")
-			key1Pressed = true
+			if e.Flags == 32 {
+				fmt.Println(key1 + " pressed")
+				key1Pressed = true
+			} else {
+				key1Pressed = false
+			}
 		case key2:
 			fmt.Println(key2 + " pressed")
 			if key1Pressed {
@@ -86,7 +90,6 @@ func mouseListener() error {
 			}
 		}
 	}
-
 }
 
 func getAppData() string {

@@ -2,7 +2,6 @@ package main
 
 import (
 	"io"
-	// "os"
 	"time"
 
 	"github.com/aws/aws-sdk-go/aws"

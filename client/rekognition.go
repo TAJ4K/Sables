@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -16,20 +15,17 @@ import (
 	"github.com/aws/aws-sdk-go/service/rekognition"
 )
 
-func rekognize() {
+func rekognize(image []byte) {
 	sess := session.Must(session.NewSession(&aws.Config{
 		Region:      aws.String("us-east-1"),
 		Credentials: credentials.NewStaticCredentials(getDotEnvVar("AWS_ACCESS_KEY_ID"), getDotEnvVar("AWS_SECRET_ACCESS_KEY"), ""),
 	}))
 
-	image, _ := os.Open(getAppData() + "\\screenshot.png")
-	imageBytes, _ := io.ReadAll(image)
-
 	svc := rekognition.New(sess)
 
 	input := &rekognition.DetectLabelsInput{
 		Image: &rekognition.Image{
-			Bytes: imageBytes,
+			Bytes: image,
 		},
 	}
 
