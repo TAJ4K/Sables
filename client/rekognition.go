@@ -46,6 +46,7 @@ func rekognize(image []byte) {
 	fmt.Println(highestConfObject)
 	if highestConfObject != "" {
 		tts(highestConfObject)
+		sendToast("Detected object: " + highestConfObject)
 	}
 }
 

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"fmt"
 	"time"
 
@@ -10,6 +11,13 @@ import (
 )
 
 func main() {
+	_, err := os.Stat(basePathG+"/Sables")
+	if err != nil {
+		fmt.Println("Creating directory")
+		initAppData()
+	}
+
+	sendToast("Sables enabled, use Alt+H to start the capture!")
 	if err := keyListener(); err != nil {
 		panic(err)
 	}
