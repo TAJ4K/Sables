@@ -9,7 +9,6 @@ Run the downloaded .exe and you're good to go!
 With the exe running in the background, simply press Alt+H to turn it on
 Then, drag your mouse over the object you want to visualize and after a few seconds, you'll see a popup with the object's name.
 
-
 ## Want to build it for yourself?
 Download the source code from [GitHub](https://github.com/TAJ4K/Sables/tree/main/client) and download Golang here [https://go.dev/](https://go.dev/)
 Edit the .env.example to a .env file with the following content:
