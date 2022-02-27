@@ -11,6 +11,8 @@ import (
 )
 
 func main() {
+	basePath()
+	
 	_, err := os.Stat(basePathG+"/Sables")
 	if err != nil {
 		fmt.Println("Creating directory")

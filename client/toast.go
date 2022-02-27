@@ -1,27 +1,27 @@
 package main
 
 import (
-	"fmt"
 	"io"
 	"net/http"
 	"os"
 
-	"github.com/gen2brain/beeep"
+	"github.com/go-toast/toast"
 )
 
 var basePathG string
 
-func initAppData(){
+func basePath() {
 	basePath, err := os.UserConfigDir()
 	if err != nil {
 		panic(err)
 	}
-
 	basePathG = basePath
+}
 
-	os.MkdirAll(basePath+"/Sables", 0777)
+func initAppData(){
+	os.MkdirAll(basePathG+"/Sables", 0777)
 
-	out, err := os.Create(basePath+"/Sables/icon.png")
+	out, err := os.Create(basePathG+"/Sables/icon.png")
 	if err != nil {
 		panic(err)
 	}
@@ -40,9 +40,12 @@ func initAppData(){
 }
 
 func sendToast(message string) {
-	fmt.Println(basePathG+"/Sables/icon.png")
-	err := beeep.Notify("Sables", message, basePathG+"/Sables/icon.png")
-	if err != nil {
-		panic(err)
+	notification := toast.Notification{
+		AppID:   "Sables",
+		Title:   "\u200b",
+		Message: message,
+		Icon:    basePathG+"/Sables/icon.png",
 	}
+
+	notification.Push()
 }
