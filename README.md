@@ -25,4 +25,4 @@ to have the exe open without the cli, or use
 ```sh
 go build .
 ```
-to have it run with the cli
+to have it run with the cli.
