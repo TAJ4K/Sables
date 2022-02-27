@@ -1,12 +1,12 @@
 # Sables
-A tool for the visually impaired
+A tool for the visually impaired.
 
 ## Installation
 Visit our website [sables.tech](https://sables.tech) and click on the "Install" button.
 Run the downloaded .exe and you're good to go!
 
 ## Usage
-With the exe running in the background, simply press Alt+H to turn it on
+With the exe running in the background, simply press Alt+H to turn it on.
 Then, drag your mouse over the object you want to visualize and after a few seconds, you'll see a popup with the object's name.
 
 ## Want to build it for yourself?
