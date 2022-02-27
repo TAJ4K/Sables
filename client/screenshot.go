@@ -1,9 +1,9 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"image/png"
-	"bytes"
 
 	"github.com/moutend/go-hook/pkg/types"
 
@@ -23,7 +23,7 @@ func screenshotThis(e1 types.MouseEvent, e2 types.MouseEvent) {
 	}
 
 	buff := new(bytes.Buffer)
-	
+
 	err = png.Encode(buff, img)
 	if err != nil {
 		panic(err)

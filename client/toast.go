@@ -18,10 +18,10 @@ func basePath() {
 	basePathG = basePath
 }
 
-func initAppData(){
+func initAppData() {
 	os.MkdirAll(basePathG+"/Sables", 0777)
 
-	out, err := os.Create(basePathG+"/Sables/icon.png")
+	out, err := os.Create(basePathG + "/Sables/icon.png")
 	if err != nil {
 		panic(err)
 	}
@@ -44,7 +44,7 @@ func sendToast(message string) {
 		AppID:   "Sables Notifier",
 		Title:   "Sables",
 		Message: message,
-		Icon:    basePathG+"/Sables/icon.png",
+		Icon:    basePathG + "/Sables/icon.png",
 	}
 
 	notification.Push()

@@ -14,9 +14,9 @@ import (
 	"github.com/faiface/beep/speaker"
 )
 
-func tts(object string){
+func tts(object string) {
 	sess := session.Must(session.NewSession(&aws.Config{
-		Region: aws.String("us-east-1"),
+		Region:      aws.String("us-east-1"),
 		Credentials: credentials.NewStaticCredentials(getDotEnvVar("AWS_ACCESS_KEY_ID"), getDotEnvVar("AWS_SECRET_ACCESS_KEY"), ""),
 	}))
 

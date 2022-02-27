@@ -1,8 +1,8 @@
 package main
 
 import (
-	"os"
 	"fmt"
+	"os"
 	"time"
 
 	"github.com/moutend/go-hook/pkg/keyboard"
@@ -12,8 +12,8 @@ import (
 
 func main() {
 	basePath()
-	
-	_, err := os.Stat(basePathG+"/Sables")
+
+	_, err := os.Stat(basePathG + "/Sables")
 	if err != nil {
 		fmt.Println("Creating directory")
 		initAppData()
