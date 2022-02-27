@@ -41,8 +41,8 @@ func initAppData(){
 
 func sendToast(message string) {
 	notification := toast.Notification{
-		AppID:   "Sables",
-		Title:   "\u200b",
+		AppID:   "Sables Notifier",
+		Title:   "Sables",
 		Message: message,
 		Icon:    basePathG+"/Sables/icon.png",
 	}
